@@ -62,6 +62,7 @@ def preprocess_function(example):
 #         "ground_truth": example["answers"]
 #     }
 
+
 ALLOWED = {"Authority", "Budget", "Timeline", "Need"}
 CANON_ORDER = ["Authority", "Budget", "Timeline", "Need"]
 
@@ -107,7 +108,7 @@ def parse_action(text: str):
     inner = m.group(1)
     return parse_label_set(inner)
 
-def reward_fn(prompts, completions, **kwargs):
+def reward_fn(completions, **kwargs):
     texts = []
     for c in completions:
         if isinstance(c, str):
