@@ -8,9 +8,6 @@ from trl import GRPOConfig, GRPOTrainer
 from huggingface_hub import login
 import argparse
 
-# my_token = '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'
-# login(my_token)
-
 def preprocess_function(example):
     system_label = (
         "You are a lead qualification assistant.\n"
