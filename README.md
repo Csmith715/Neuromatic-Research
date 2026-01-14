@@ -115,7 +115,7 @@ The provided training data consists of all CRM-Arena Lead Qualification examples
 ### Example Run
 
 ```bash
-python train_grpo.py \
+python slm_fine_tune.py \
   --huggingface_model_name "Qwen/Qwen2.5-3B-Instruct" \
   --huggingface_token "hf_XXXXXXXX" \
   --train_data_file_path "./data/SLM_Data_LQ_Augmented_397.csv" \
