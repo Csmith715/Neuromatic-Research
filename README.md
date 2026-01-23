@@ -122,6 +122,15 @@ python slm_fine_tune.py \
   --model_save_path "./out/qwen-grpo-lora"
 ```
 
+### Fine-Tune Evaluation
+```bash
+python fine_tune_evaluation.py \
+  --huggingface_model_name "Qwen/Qwen2.5-3B-Instruct" \
+  --huggingface_token "hf_XXXXXXXX" \
+  --train_data_file_path "./data/SLM_Data_LQ_Augmented_397.csv" \
+  --fine_tune_path "/fine_tune_directory" # Trained fine-tuned model path
+```
+
 ---
 
 ## Training Details

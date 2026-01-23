@@ -4,3 +4,4 @@ transformers~=4.57.3
 peft~=0.18.1
 trl~=0.26.2
 huggingface_hub~=0.36.0
+scikit-learn~=1.8.0
