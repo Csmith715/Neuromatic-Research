@@ -107,7 +107,7 @@ The provided training data consists of all CRM-Arena Lead Qualification examples
 
 | Argument                   | Description                                     |
 | -------------------------- | ----------------------------------------------- |
-| `--huggingface_model_name` | Base model ID (e.g. `Qwen/Qwen2.5-3B-Instruct`) |
+| `--huggingface_model_name` | Base model ID (e.g. `Qwen/Qwen3-4B-Instruct-2507`) |
 | `--huggingface_token`      | Hugging Face access token                       |
 | `--train_data_file_path`   | Path to training CSV                            |
 | `--model_save_path`        | Output directory for LoRA adapters              |
@@ -116,7 +116,7 @@ The provided training data consists of all CRM-Arena Lead Qualification examples
 
 ```bash
 python slm_fine_tune.py \
-  --huggingface_model_name "Qwen/Qwen2.5-3B-Instruct" \
+  --huggingface_model_name "Qwen/Qwen3-4B-Instruct-2507" \
   --huggingface_token "hf_XXXXXXXX" \
   --train_data_file_path "./data/SLM_Data_LQ_Augmented_397.csv" \
   --model_save_path "./out/qwen-grpo-lora"
@@ -125,7 +125,7 @@ python slm_fine_tune.py \
 ### Fine-Tune Evaluation
 ```bash
 python fine_tune_evaluation.py \
-  --huggingface_model_name "Qwen/Qwen2.5-3B-Instruct" \
+  --huggingface_model_name "Qwen/Qwen3-4B-Instruct-2507" \
   --huggingface_token "hf_XXXXXXXX" \
   --train_data_file_path "./data/SLM_Data_LQ_Augmented_397.csv" \
   --fine_tune_path "/fine_tune_directory" # Trained fine-tuned model path
