@@ -2,7 +2,7 @@ import pandas as pd
 import re
 import torch
 from datasets import Dataset, DatasetDict
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from peft import LoraConfig, PeftModel
 from trl import GRPOConfig, GRPOTrainer
 from huggingface_hub import login
@@ -127,7 +127,6 @@ def reward_fn(completions, **kwargs):
             rewards.append(-2.0)
             continue
         r = 0.5
-
         if golds is not None:
             gold = parse_action(golds[i])
             if gold is not None and pred == gold:
@@ -138,6 +137,14 @@ def reward_fn(completions, **kwargs):
         rewards.append(r)
 
     return rewards
+
+
+quant_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_use_double_quant=True
+)
 
 class SLMTrainer:
     def __init__(self, hf_model_name, hf_token, train_file_path, model_save_path):
@@ -159,7 +166,7 @@ class SLMTrainer:
             token=hf_token,
             device_map="auto",
             dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float16,
-            load_in_4bit=True,
+            quantization_config=quant_config,
         )
         self.peft_config = LoraConfig(
             r=16,
@@ -175,7 +182,7 @@ class SLMTrainer:
             per_device_train_batch_size=1,
             gradient_accumulation_steps=8,
             num_train_epochs=1,
-            max_prompt_length=2048,
+            max_prompt_length=2048,  # Prompt length is another area to potentially focus on
             max_completion_length=32,
             num_generations=6,
             generation_batch_size=6,
